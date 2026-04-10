@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitality | Modern Health Dashboard</title>
+    <meta name="description" content="Minimal, professional AI-powered Food & Health System">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Using Phosphor Icons for minimalist icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <i class="ph ph-activity logo-icon"></i>
+                <h1 class="logo">Vitality</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#dashboard" class="nav-item active"><i class="ph ph-squares-four"></i> Dashboard</a></li>
+                <li><a href="#recommendations" class="nav-item"><i class="ph ph-list-heart"></i> Recommendations</a></li>
+                <li><a href="#insights" class="nav-item"><i class="ph ph-chart-line-up"></i> Insights</a></li>
+                <li><a href="#profile" class="nav-item"><i class="ph ph-user"></i> Profile</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="health-score-pill">
+                    <span id="score-text">Score: --</span>
+                    <div class="score-indicator" id="score-trend"></div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Login View -->
+            <section id="view-login" class="view hidden-view flex-center">
+                <div class="card login-card">
+                    <div class="sidebar-header" style="justify-content: center; margin-bottom: 1rem; padding-bottom: 0;">
+                        <i class="ph ph-activity logo-icon" style="font-size: 2.5rem;"></i>
+                        <h1 class="logo" style="font-size: 2rem;">Vitality</h1>
+                    </div>
+                    <p style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">Sign in to your health dashboard.</p>
+                    
+                    <form id="login-form" class="minimal-form">
+                        <div class="form-group">
+                            <label for="login-email">Email Address</label>
+                            <input type="email" id="login-email" placeholder="you@example.com" value="demo@vitality.ai" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" placeholder="••••••••" value="password123" required>
+                        </div>
+                        <button type="submit" class="btn-primary" style="margin-top: 0.5rem; width: 100%;">Sign In</button>
+                    </form>
+                    <div id="login-notification" class="notification hidden"></div>
+                </div>
+            </section>
+
+            <!-- Dashboard View -->
+            <section id="view-dashboard" class="view active-view">
+                <header class="view-header">
+                    <h2>Dashboard</h2>
+                    <p>Overview of your health metrics and quick actions.</p>
+                </header>
+                
+                <div class="dashboard-grid">
+                    <!-- Quick Log -->
+                    <div class="card action-card">
+                        <h3><i class="ph ph-plus-circle"></i> Quick Log</h3>
+                        <form id="tracker-form" class="minimal-form">
+                            <select id="activity-type" required>
+                                <option value="meal">Meal</option>
+                                <option value="water">Hydration</option>
+                                <option value="exercise">Exercise</option>
+                                <option value="sleep">Sleep</option>
+                            </select>
+                            <input type="text" id="activity-details" placeholder="E.g., 2 eggs and toast" required>
+                            <button type="submit" class="btn-primary">Track</button>
+                        </form>
+                        <div id="log-notification" class="notification hidden"></div>
+                    </div>
+
+                    <!-- Smart Nudges snapshot -->
+                    <div class="card nudges-card">
+                        <h3><i class="ph ph-bell-ringing"></i> Today's Focus</h3>
+                        <div id="dashboard-nudges" class="nudges-container">
+                            <div class="skeleton-line"></div>
+                            <div class="skeleton-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommendations View -->
+            <section id="view-recommendations" class="view hidden-view">
+                <header class="view-header">
+                    <h2>Dietary Recommendations</h2>
+                    <p>AI-suggested meals based on your behavior and goals.</p>
+                </header>
+                
+                <div id="full-meals-container" class="meals-list">
+                    <div class="skeleton-box"></div>
+                </div>
+            </section>
+
+            <!-- Insights View -->
+            <section id="view-insights" class="view hidden-view">
+                <header class="view-header">
+                    <h2>Behavior Insights</h2>
+                    <p>Patterns detected in your recent logs.</p>
+                </header>
+
+                <div class="insights-grid" id="insights-container">
+                    <div class="skeleton-box"></div>
+                </div>
+            </section>
+
+            <!-- Profile / User Input View -->
+            <section id="view-profile" class="view hidden-view">
+                <header class="view-header">
+                    <h2>Your Profile</h2>
+                    <p>Update your biometric data for better recommendations.</p>
+                </header>
+
+                <div class="card profile-card">
+                    <form id="profile-form" class="stacked-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="prof-age">Age</label>
+                                <input type="number" id="prof-age" placeholder="e.g., 28" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prof-weight">Weight (kg)</label>
+                                <input type="number" id="prof-weight" placeholder="e.g., 70" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="prof-goal">Primary Goal</label>
+                            <select id="prof-goal">
+                                <option value="maintain">Maintain Weight & Health</option>
+                                <option value="lose">Lose Weight</option>
+                                <option value="gain">Build Muscle</option>
+                                <option value="energy">Boost Energy</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prof-diet">Dietary Preference</label>
+                            <select id="prof-diet">
+                                <option value="none">None / Omnivore</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="keto">Keto</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Profile</button>
+                    </form>
+                    <div id="profile-notification" class="notification hidden"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
