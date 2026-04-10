@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vitality | Modern Health Dashboard</title>
-    <meta name="description" content="Minimal, professional AI-powered Food & Health System">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Using Phosphor Icons for minimalist icons -->
+    <title>Vitality | Premium Health AI</title>
+    <meta name="description" content="AI-powered personal health dashboard with premium analytics.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="app-container">
         
-        <!-- Sidebar Navigation -->
+        <!-- Premium Sidebar Navigation -->
         <nav class="sidebar">
             <div class="sidebar-header">
                 <i class="ph ph-activity logo-icon"></i>
@@ -21,17 +20,18 @@
             </div>
             
             <ul class="nav-links">
-                <li><a href="#dashboard" class="nav-item active"><i class="ph ph-squares-four"></i> Dashboard</a></li>
-                <li><a href="#recommendations" class="nav-item"><i class="ph ph-list-heart"></i> Recommendations</a></li>
-                <li><a href="#insights" class="nav-item"><i class="ph ph-chart-line-up"></i> Insights</a></li>
-                <li><a href="#profile" class="nav-item"><i class="ph ph-user"></i> Profile</a></li>
+                <li><a href="#dashboard" class="nav-item active"><i class="ph ph-squares-four"></i> <span>Dashboard</span></a></li>
+                <li><a href="#recommendations" class="nav-item"><i class="ph ph-sparkle"></i> <span>Insights</span></a></li>
+                <li><a href="#insights" class="nav-item"><i class="ph ph-chart-line-up"></i> <span>Trends</span></a></li>
+                <li><a href="#profile" class="nav-item"><i class="ph ph-user-circle"></i> <span>Profile</span></a></li>
             </ul>
 
             <div class="sidebar-footer">
                 <div class="health-score-pill">
-                    <span id="score-text">Score: --</span>
-                    <div class="score-indicator" id="score-trend"></div>
+                    <span id="score-text">Vitality Score</span>
+                    <i class="ph ph-caret-right" style="opacity: 0.5;"></i>
                 </div>
+                <a href="#login" id="logout-btn" class="nav-item" style="margin-top: 1rem; color: var(--accent-danger);"><i class="ph ph-sign-out"></i> <span>Logout</span></a>
             </div>
         </nav>
 
@@ -39,69 +39,81 @@
         <main class="main-content">
             
             <!-- Login View -->
-            <section id="view-login" class="view hidden-view flex-center">
-                <div class="card login-card">
-                    <div class="sidebar-header" style="justify-content: center; margin-bottom: 1rem; padding-bottom: 0;">
-                        <i class="ph ph-activity logo-icon" style="font-size: 2.5rem;"></i>
-                        <h1 class="logo" style="font-size: 2rem;">Vitality</h1>
+            <section id="view-login" class="view flex-center">
+                <div class="card login-card glass">
+                    <div class="sidebar-header" style="justify-content: center; margin-bottom: 2rem; padding: 0;">
+                        <i class="ph ph-activity logo-icon" style="font-size: 3rem;"></i>
+                        <h1 class="logo" style="font-size: 2.5rem;">Vitality</h1>
                     </div>
-                    <p style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">Sign in to your health dashboard.</p>
+                    <p style="text-align: center; margin-bottom: 2.5rem; color: var(--text-secondary); font-weight: 500;">Welcome back. Let's optimize your health.</p>
                     
                     <form id="login-form" class="minimal-form">
                         <div class="form-group">
-                            <label for="login-email">Email Address</label>
-                            <input type="email" id="login-email" placeholder="you@example.com" value="demo@vitality.ai" required>
+                            <input type="email" id="login-email" placeholder="Email Address" value="demo@vitality.ai" required>
                         </div>
                         <div class="form-group">
-                            <label for="login-password">Password</label>
-                            <input type="password" id="login-password" placeholder="••••••••" value="password123" required>
+                            <input type="password" id="login-password" placeholder="Password" value="password123" required>
                         </div>
-                        <button type="submit" class="btn-primary" style="margin-top: 0.5rem; width: 100%;">Sign In</button>
+                        <button type="submit" class="btn-primary" style="margin-top: 1rem; width: 100%;">Access Dashboard</button>
                     </form>
                     <div id="login-notification" class="notification hidden"></div>
                 </div>
             </section>
 
             <!-- Dashboard View -->
-            <section id="view-dashboard" class="view active-view">
-                <header class="view-header">
-                    <h2>Dashboard</h2>
-                    <p>Overview of your health metrics and quick actions.</p>
-                </header>
+            <section id="view-dashboard" class="view">
+                <div class="welcome-header">
+                    <div>
+                        <h2 id="greeting-text">Good Afternoon</h2>
+                        <p id="current-date" style="color: var(--text-secondary);"></p>
+                    </div>
+                    <div class="badge" style="padding: 0.5rem 1rem; border-radius: 2rem; background: var(--primary-glow); color: var(--primary);">PREMIUM PLAN</div>
+                </div>
                 
-                <div class="dashboard-grid">
+                <div class="dashboard-summary-grid">
+                    <!-- Score Gauge -->
+                    <div class="card score-card glass">
+                        <div id="health-gauge-container">
+                            <svg class="gauge-svg" viewBox="0 0 160 160">
+                                <circle class="gauge-bg" cx="80" cy="80" r="70"></circle>
+                                <circle id="gauge-progress-bar" class="gauge-progress" cx="80" cy="80" r="70"></circle>
+                            </svg>
+                            <div class="gauge-text" id="gauge-val">--</div>
+                        </div>
+                        <p style="font-weight: 600; font-size: 0.9rem; opacity: 0.7;">DAILY VITALITY INDEX</p>
+                    </div>
+
                     <!-- Quick Log -->
-                    <div class="card action-card">
-                        <h3><i class="ph ph-plus-circle"></i> Quick Log</h3>
+                    <div class="card glass">
+                        <h3 style="margin-bottom: 1.5rem;"><i class="ph ph-lightning" style="color: var(--accent);"></i> Fast Log</h3>
                         <form id="tracker-form" class="minimal-form">
                             <select id="activity-type" required>
-                                <option value="meal">Meal</option>
+                                <option value="meal">Meal Intake</option>
                                 <option value="water">Hydration</option>
-                                <option value="exercise">Exercise</option>
-                                <option value="sleep">Sleep</option>
+                                <option value="exercise">Exercise Session</option>
+                                <option value="sleep">Sleep Quality</option>
                             </select>
-                            <input type="text" id="activity-details" placeholder="E.g., 2 eggs and toast" required>
-                            <button type="submit" class="btn-primary">Track</button>
+                            <input type="text" id="activity-details" placeholder="Describe your activity..." required>
+                            <button type="submit" class="btn-primary">Optimize Now</button>
                         </form>
                         <div id="log-notification" class="notification hidden"></div>
                     </div>
+                </div>
 
-                    <!-- Smart Nudges snapshot -->
-                    <div class="card nudges-card">
-                        <h3><i class="ph ph-bell-ringing"></i> Today's Focus</h3>
-                        <div id="dashboard-nudges" class="nudges-container">
-                            <div class="skeleton-line"></div>
-                            <div class="skeleton-line"></div>
-                        </div>
+                <div class="card glass">
+                    <h3 style="margin-bottom: 1.5rem;"><i class="ph ph-bell-ringing" style="color: var(--primary);"></i> AI Health Nudges</h3>
+                    <div id="dashboard-nudges" class="nudges-container">
+                        <div class="skeleton-line"></div>
+                        <div class="skeleton-line"></div>
                     </div>
                 </div>
             </section>
 
             <!-- Recommendations View -->
-            <section id="view-recommendations" class="view hidden-view">
+            <section id="view-recommendations" class="view">
                 <header class="view-header">
-                    <h2>Dietary Recommendations</h2>
-                    <p>AI-suggested meals based on your behavior and goals.</p>
+                    <h2>Smart Meal Plan</h2>
+                    <p>Optimized suggestions generated by your health profile.</p>
                 </header>
                 
                 <div id="full-meals-container" class="meals-list">
@@ -110,10 +122,10 @@
             </section>
 
             <!-- Insights View -->
-            <section id="view-insights" class="view hidden-view">
+            <section id="view-insights" class="view">
                 <header class="view-header">
-                    <h2>Behavior Insights</h2>
-                    <p>Patterns detected in your recent logs.</p>
+                    <h2>Behavioral Trends</h2>
+                    <p>AI-detected patterns in your lifestyle data.</p>
                 </header>
 
                 <div class="insights-grid" id="insights-container">
@@ -121,47 +133,47 @@
                 </div>
             </section>
 
-            <!-- Profile / User Input View -->
-            <section id="view-profile" class="view hidden-view">
+            <!-- Profile View -->
+            <section id="view-profile" class="view">
                 <header class="view-header">
-                    <h2>Your Profile</h2>
-                    <p>Update your biometric data for better recommendations.</p>
+                    <h2>User Configuration</h2>
+                    <p>Define your biological baseline.</p>
                 </header>
 
-                <div class="card profile-card">
-                    <form id="profile-form" class="stacked-form">
-                        <div class="form-row">
+                <div class="card glass" style="max-width: 600px;">
+                    <form id="profile-form" class="minimal-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                             <div class="form-group">
-                                <label for="prof-age">Age</label>
-                                <input type="number" id="prof-age" placeholder="e.g., 28" required>
+                                <label>Age</label>
+                                <input type="number" id="prof-age" placeholder="28" required>
                             </div>
                             <div class="form-group">
-                                <label for="prof-weight">Weight (kg)</label>
-                                <input type="number" id="prof-weight" placeholder="e.g., 70" required>
+                                <label>Weight (kg)</label>
+                                <input type="number" id="prof-weight" placeholder="72" required>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="prof-goal">Primary Goal</label>
+                            <label>Health Objective</label>
                             <select id="prof-goal">
-                                <option value="maintain">Maintain Weight & Health</option>
-                                <option value="lose">Lose Weight</option>
-                                <option value="gain">Build Muscle</option>
-                                <option value="energy">Boost Energy</option>
+                                <option value="maintain">Longevity & Maintenance</option>
+                                <option value="lose">Weight Optimization</option>
+                                <option value="gain">Hypertrophy (Muscle)</option>
+                                <option value="energy">Metabolic Efficiency</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label for="prof-diet">Dietary Preference</label>
+                            <label>Nutritional Protocol</label>
                             <select id="prof-diet">
-                                <option value="none">None / Omnivore</option>
-                                <option value="vegetarian">Vegetarian</option>
-                                <option value="vegan">Vegan</option>
-                                <option value="keto">Keto</option>
+                                <option value="none">Standard / Flexible</option>
+                                <option value="vegetarian">Plant-Forward</option>
+                                <option value="vegan">Strictly Plant-Based</option>
+                                <option value="keto">Ketogenic</option>
                             </select>
                         </div>
                         
-                        <button type="submit" class="btn-primary">Save Profile</button>
+                        <button type="submit" class="btn-primary" style="margin-top: 1rem;">Save Parameters</button>
                     </form>
                     <div id="profile-notification" class="notification hidden"></div>
                 </div>
